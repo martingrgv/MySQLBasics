@@ -1,3 +1,6 @@
+<h1 align="center">MySQL - Basics</h1>
+<br />
+
 # Database
 ```
 CREATE DATABASE databaseName;
