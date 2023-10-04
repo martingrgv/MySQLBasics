@@ -1,4 +1,5 @@
 <h1 align="center">MySQL - Basics</h1>
+<h4 align="center">Credits: BroCode (https://www.youtube.com/watch?v=5OdVJbNCSso)</h3>
 <br />
 
 # Database
@@ -229,3 +230,62 @@ FROM Transactions
 GROUP BY date_time WITH ROLLUP;
 ```
 # ON DELETE
+```
+-- ON DELETE SET NULL = When a FK is deleted, replace FK with NULL
+-- ON DELETE CASCADE = When a FK is deleted, delete row
+ALTER TABLE transactions
+ADD CONSTRAINT fk_transactions_id
+FOREIGN KEY (donator_id) REFERENCES donators(donator_id)
+ON DELETE SET NULL;
+
+DROP FROM donators
+WHERE donator_id = 1;
+```
+# Stored Procedurs
+```
+-- Stored procedurs = is prepared SQL code that you can save great if there's a query that you write often
+DELIMITER $$
+CREATE PROCEDURE get_donators_transactions()
+BEGIN
+	SELECT donators.donator_id, donator_name, amount, date_time
+	FROM transactions
+	INNER JOIN donators
+	ON transactions.donator_id = donators.donator_id
+	ORDER BY donators.donator_id ASC;
+END $$
+DELIMITER ;
+
+CALL get_donators_transactions();
+
+DROP PROCEDURE get_donators_transactions();
+
+DELIMITER $$
+CREATE PROCEDURE find_employee(IN id INT)
+BEGIN
+	SELECT *
+	FROM employees
+	WHERE employee_id = id;
+END $$
+DELIMITER ;
+
+CALL find_employee(1);
+```
+# Triggers
+```
+-- Trigger = When an event happens, do something
+--           ex. (INSERT, UPDATE, DELETE)
+--           checks data, handles errors, auditing tables
+CREATE TRIGGER before_hourly_pay_update
+BEFORE UPDATE ON employees
+FOR EACH ROW 
+SET NEW.salary = (NEW.hourly_pay * 2080);
+
+SHOW TRIGGERS;
+
+UPDATE employees
+SET hourly_pay = 180
+WHERE employee_id = 1;
+
+SELECT first_name, hourly_pay, salary
+FROM employees;
+```
