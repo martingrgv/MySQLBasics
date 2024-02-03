@@ -1,6 +1,7 @@
 <h1 align="center">MySQL - Basics</h1>
 <h4 align="center">Credits: BroCode (https://www.youtube.com/watch?v=5OdVJbNCSso)</h3>
 <br />
+<h2 align="center">"The best way to learn is to teach" - Frank Oppenheimer</h2>
 
 # Database
 ```
